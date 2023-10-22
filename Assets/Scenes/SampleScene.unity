@@ -1068,37 +1068,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quizUI: {fileID: 1283494121}
-  questList:
-  - questionInfo: quiz A
-    options:
-    - a
-    - b
-    - c
-    - d
-    correctAns: a
-    QType: 0
-    questionImg: {fileID: 0}
-    questionAud: {fileID: 0}
-  - questionInfo: quiz B
-    options:
-    - a
-    - b
-    - c
-    - d
-    correctAns: b
-    QType: 0
-    questionImg: {fileID: 0}
-    questionAud: {fileID: 0}
-  - questionInfo: Quiz C
-    options:
-    - a
-    - b
-    - c
-    - d
-    correctAns: c
-    QType: 0
-    questionImg: {fileID: 0}
-    questionAud: {fileID: 0}
+  quizData: {fileID: 11400000, guid: 2640648d55ef54942a26c08232544582, type: 2}
 --- !u!4 &919089395
 Transform:
   m_ObjectHideFlags: 0

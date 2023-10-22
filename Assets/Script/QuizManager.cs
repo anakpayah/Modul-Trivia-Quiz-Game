@@ -5,11 +5,13 @@ using UnityEngine;
 public class QuizManager : MonoBehaviour
 {
     [SerializeField] private QuizUI quizUI;
-    [SerializeField] private List<Question> questList;
+    [SerializeField] private QuizDataSO quizData;
+    private List<Question> questList;
     private Question selectedQuest;
     // Start is called before the first frame update
     void Start()
     {
+        questList = quizData.questions;
         RandQuestion();
     }
 
