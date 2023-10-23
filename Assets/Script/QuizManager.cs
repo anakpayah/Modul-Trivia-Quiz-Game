@@ -24,8 +24,12 @@ public class QuizManager : MonoBehaviour
         scoreCount = 0;
         currentTime = timeLimit;
         lifePoint = 3;
+        questList = new List<Question>();
 
-        questList = quizData[index].questions;
+        for (int i = 0; i< quizData[index].questions.Count; i++) {
+            questList.Add(quizData[index].questions[i]);
+        }
+
         RandQuestion();
 
         gameStatus = GameStatus.Playing;
