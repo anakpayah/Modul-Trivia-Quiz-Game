@@ -136,7 +136,7 @@ Contoh Tampilan Project Unity 3D dan 2D:
 
 ![Alt text](Images/image-25.png)
 
-## E. Code QuizManager
+## E. Code Part 1 
 
 - setelah itu kita buat script baru untuk menjalankan logic dari game yang akan kita buat.
 
@@ -167,6 +167,11 @@ public class QuizManager : MonoBehaviour
     //current question data
     private Question selectedQuetion = new Question();
 
+    private void Start() 
+    {
+        SelectQuestion(); 
+    }
+
     private void SelectQuestion()
     {
         //get the random number
@@ -185,11 +190,14 @@ public class QuizManager : MonoBehaviour
         if (selectedQuetion.correctAns == selectedOption)
         {
             //Yes, Ans is correct
+            correct = true;
         }
         else
         {
             //No, Ans is wrong
         }
+
+        Invoke("SelectQuestion", 0.5f);
 
         //return the value of correct bool
         return correct;
@@ -240,6 +248,15 @@ public class QuizUI : MonoBehaviour
     private Question question;          //store current question data
     private bool answered = false;      //bool to keep track if answered or not
 
+    private void Start() {
+        //add the listner to all the buttons
+        for (int i = 0; i < options.Count; i++)
+        {
+            Button localBtn = options[i];
+            localBtn.onClick.AddListener(() => OnClick(localBtn));
+        }
+    }
+
     public void SetQuestion(Question question)
     {
         //set the question
@@ -262,7 +279,7 @@ public class QuizUI : MonoBehaviour
                 questionAudio.transform.gameObject.SetActive(true);         //activate questionAudio
                 
                 audioLength = question.audioClip.length;                    //set audio clip
-               // StartCoroutine(PlayAudio());                                //start Coroutine
+                StartCoroutine(PlayAudio());                                //start Coroutine
                 break;
         }
 
@@ -275,13 +292,68 @@ public class QuizUI : MonoBehaviour
         for (int i = 0; i < options.Count; i++)
         {
             //set the child text
-            options[i].GetComponentInChildren<Text>().text = ansOptions[i];
+            options[i].GetComponentInChildren<TMP_Text>().text = ansOptions[i];
             options[i].name = ansOptions[i];    //set the name of button
             options[i].image.color = normalCol; //set color of button to normal
         }
 
         answered = false;                       
 
+    }
+
+    /// <summary>
+    /// IEnumerator to repeate the audio after some time
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator PlayAudio()
+    {
+        //if questionType is audio
+        if (question.questionType == QuestionType.AUDIO)
+        {
+            //PlayOneShot
+            questionAudio.PlayOneShot(question.audioClip);
+            //wait for few seconds
+            yield return new WaitForSeconds(audioLength + 0.5f);
+            //play again
+            StartCoroutine(PlayAudio());
+        }
+        else //if questionType is not audio
+        {
+            //stop the Coroutine
+            StopCoroutine(PlayAudio());
+            //return null
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// Method assigned to the buttons
+    /// </summary>
+    /// <param name="btn">ref to the button object</param>
+    void OnClick(Button btn)
+    {
+        
+            //if answered is false
+            if (!answered)
+            {
+                //set answered true
+                answered = true;
+                //get the bool value
+                bool val = quizManager.Answer(btn.name);
+
+                //if its true
+                if (val)
+                {
+                    //set color to correct
+                    btn.image.color = correctCol;                    
+                }
+                else
+                {
+                    //else set it to wrong color
+                    btn.image.color = wrongCol;
+                }
+            }
+        
     }
 }
 ```
@@ -317,7 +389,129 @@ public abstract class ShuffleList
 }
 ```
 
+- Kembali ke Unity, selanjutnya kita membuat 2 GameObject baru pada Hierarcy yang bukan merupakan Child dari apapun. GameObject tersebut kita beri nama `QuizManager` dan `UIManager`
 
+- setelah itu kita masukan component script pada masing masing GameObject, tambahkan component(script) `QuizManager.cs` pada GameObject `QuizManager`, juga tambahkan component(script) `QuizUI.cs` pada GameObject `UIManager`
+
+- hasil kurang lebih sebagai berikut
+
+![Alt text](/Images/image-27.png)
+
+![Alt text](image-28.png)
+
+- setelah itu pasang reference melalui Inspector pada component yang ada seperti berikut
+
+![Alt text](image-29.png)
+
+![Alt text](image-30.png)
+
+`Note` : pertanyaan merupakan contoh
+
+### ScriptableObject
+
+- kita akan membuat Scriptable Object agar mempermuda alokasi data pertanyaan yang ada
+
+- buat C# script dengan nama `QuizDataSO` lalu isi code sebagaimana dibawah berikut:
+
+```C#
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "QuestionsData", menuName = "QuestionsData", order = 1)]
+public class QuizDataSO : ScriptableObject
+{
+    public List<Question> questions;
+}
+```
+- edit script `QuizManager.cs` sebagai berikut
+
+```C#
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class QuizManager : MonoBehaviour
+{
+    [SerializeField] private QuizUI quizUI;
+    [SerializeField] private  QuizDataSO quizDataSO;
+    private List<Question> questions;
+    
+    //current question data
+    private Question selectedQuetion = new Question();
+
+    private void Start() 
+    {
+        questions = quizDataSO.questions;
+        SelectQuestion(); 
+    }
+
+    private void SelectQuestion()
+    {
+        //get the random number
+        int val = UnityEngine.Random.Range(0, questions.Count);
+        //set the selectedQuetion
+        selectedQuetion = questions[val];
+        //send the question to quizGameUI
+        quizUI.SetQuestion(selectedQuetion);
+    }
+
+    public bool Answer(string selectedOption) 
+    {
+        //set default to false
+        bool correct = false;
+        //if selected answer is similar to the correctAns
+        if (selectedQuetion.correctAns == selectedOption)
+        {
+            //Yes, Ans is correct
+            correct = true;
+        }
+        else
+        {
+            //No, Ans is wrong
+        }
+
+        Invoke("SelectQuestion", 0.5f);
+
+        //return the value of correct bool
+        return correct;
+    }
+
+}
+
+//Data  structure for storing the quetions data
+[System.Serializable]
+public class Question
+{
+    public string questionInfo;         //question text
+    public QuestionType questionType;   //type
+    public Sprite questionImage;        //image for Image Type
+    public AudioClip audioClip;         //audio for audio type
+    public List<string> options;        //options to select
+    public string correctAns;           //correct option
+}
+
+[System.Serializable]
+public enum QuestionType
+{
+    TEXT,
+    IMAGE,
+    AUDIO
+}
+```
+- setelah itu kembali ke Unity dan buat folder baru denagn nama QuestionData, folder ini nanti akan menjadi tempat penyimpanan data quiz-quiz kita.
+
+- lalu buat scriptableObjectnya dengan cara klik kanan Create > QuestionData, akan muncul ScriptableObject sesuai dengan script yang kita buat sebelumnya
+
+![Alt text](image-31.png)
+
+- hasilnya seperti berikut
+
+![Alt text](image-32.png)
+
+- lalu kita hanya cukup drag and drop ke QuizManager unutk menggunakan pertanyaan dari ScriptableObject
+
+![Alt text](image-33.png)
 
 
 
