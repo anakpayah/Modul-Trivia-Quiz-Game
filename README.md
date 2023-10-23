@@ -10,9 +10,9 @@ Dalam Unity, dikenal namanya "Unity Project". Unity project secara umunya dibeda
 
 Contoh Tampilan Project Unity 3D dan 2D:
 
-![contoh 3D](image.png)
+![contoh 3D](Images/image.png)
 
-![Contoh 2D](image-1.png)
+![Contoh 2D](Images/image-1.png)
 
 ## B. Setting up Project
 
@@ -20,47 +20,47 @@ Contoh Tampilan Project Unity 3D dan 2D:
 
 2. Pilih New Project pada bagian kanan atas untuk membuat project baru
 
-![Alt text](image-2.png)
+![Alt text](Images/image-2.png)
 
 3. Pilih template 2D sebagai dasar library unity untuk membuat 2D game, isi **Project Name** untuk nama project game yang akan dibuat dan **Location** untuk lokasi tempat penyimpanan pada memory. Jangan lupa memastikan versi editor unity pada bagian atas sudah sesuai.
 
-![Alt text](image-3.png)
+![Alt text](Images/image-3.png)
 
 4. Tekan **Create project** dan menunggu loading dari Unity untuk membuat Project Game 2D baru.
 
-![Alt text](image-4.png)
+![Alt text](Images/image-4.png)
 
 ## C. Pengenalan Layout Unity
 
 ### Scene View
 
-![LayoutUnity-SceneView](image-5.png)
+![LayoutUnity-SceneView](Images/image-5.png)
 
 - `Sceneview` adalah tempat dimana kita berinteraksi dengan *world* atau dunia virtual yang telah kita buat. Di dalam Sceneview kita dapat pilih, memanipulasi, menggerakkan (dan lain sebagainya) Camera, Lighting, dan GameObject lain yang berada di dalam Scene tersebut.    
 
 - Didalam satu project game Unity bisa terdapat beberapa `Scene`. Biasanya jika dalam project game tersebut terdapat sistem Tahapan Level maka 1 level tersebut direpesentasikan dengan 1 Scene. Jika kita ingin membuat Level baru dengan environment dan object yang mungkin berbeda, maka kita akan membuat scene baru. Scene baru juga bisa dibuat untuk membuat main menu, Score Detail Scene dan lain sebagainya. 
 ### Game View
 
-![LayoutUnity-GameView](image-6.png)
+![LayoutUnity-GameView](Images/image-6.png)
 
 - `GameView` adalah bentuk rendered dari scene yang telah dibangun dari perspektif camera. Secara singkatnya GameView berfungsi untuk preview bagaimana nantinya game kita jika dimainkan. Dengan GameView, kita bisa test memainkan game yang kita buat sebelum diBuild menjadi game utuh. Untuk menjalankan/test Game melalui GameView kita bisa menggunakan tombol  play berikut:
-![GameView-Play](image-7.png)
+![GameView-Play](Images/image-7.png)
 
 ### Project Window
 
-![LayoutUnity-ProjectWindow](image-8.png)
+![LayoutUnity-ProjectWindow](Images/image-8.png)
 
 - `Project Window` adalah window yang menampilkan semua files yang berhubungan dengan project kita. Project Window juga berfungsi untuk navigate dan mengatur/manage asset dan project files dalam suatu project. Semacam File Explorer dalam Windows, kita dapat membuat folder dalam Project Window agar para files bisa tersusun secara rapi (Semua Files yang berada di Project juga bisa diakses/dilihat dari File Explorer Windows).
 ### Hierarchy
 
-![LayoutUnity-Hierarchy](image-9.png)
+![LayoutUnity-Hierarchy](Images/image-9.png)
 
 - `Hierarchy` atau `Hierarchy Window` mengandung dan menampilkan semua GameObject yang berhubungan dalam Scene yang sedang dikerjakan. GameObject seperti camera, lighting ,model 3D, dsb yang digunakan dalam Scene pasti akan tertampil dalam Hierarchy.
 
 - Dalam Hierarchy dikenal namanya `Parenting`. 
 ### Inspector
 
-![LayoutUnity-Inspector](image-10.png)
+![LayoutUnity-Inspector](Images/image-10.png)
 
 - `Inspector` befungsi untuk mengatur *properties* dan pengaturan untuk hampir semua yang ada di Unity Editor. Seperti GameObject, Unity Component, Assets, Materials, dan lain sebagainya.
 - `GameObject` adalah *base class* dari semua entitas yang berada dalam suatu Scene. Secara umumnya entitas yang berada dalam Scene seperti Camera, Lighting, Player, dan lain-lain base nya adalah GameObject. Dalam contoh Lighting/Light Object merupakan GameObject dengan menambahkan Light `Component` ke GameObject.
@@ -68,27 +68,27 @@ Contoh Tampilan Project Unity 3D dan 2D:
 
 ### Toolbar
 
-- ![Toolbar-Account](image-11.png)
+- ![Toolbar-Account](Images/image-11.png)
     
     `Account Drop-down` untuk mengakses Unity Accounts milik kalian.
 
-- ![Toolbar-Cloud](image-12.png)
+- ![Toolbar-Cloud](Images/image-12.png)
 
     Tombol `Unity Cloud` untuk membuka *Unity Service* window.
 
-- ![Toolbar-UndoHistory](image-13.png)
+- ![Toolbar-UndoHistory](Images/image-13.png)
 
     `Undo History` untuk melihat, mengulang, dan membatalkan aksi yang telah kalian lakukan pada Editor.
 
-- ![Toolbar-Search](image-14.png)
+- ![Toolbar-Search](Images/image-14.png)
 
     Tombol `Search` akan membuka Search window yang digunakan pencarian yang lebih advance pada Editor.
 
-- ![Toolbar-Layer](image-15.png)
+- ![Toolbar-Layer](Images/image-15.png)
 
     `Layer Drop-down` berguna untuk mengontrol penempatan *GammeObejct* pada `SceneViem`.
 
-- ![Toolbar-Layout](image-16.png)
+- ![Toolbar-Layout](Images/image-16.png)
 
     `Layout Drop-down` berguna menyimpan dan mengedit Layout dari Editor kita sesuai dari prefensi masing-masing.
 
@@ -96,23 +96,23 @@ Contoh Tampilan Project Unity 3D dan 2D:
 
 - Terlebih dahulu kita akan mempersiapkan GameObject apa saja yang akan kita buat ke menu Windows Hierarchy yang kurang lebih mirip seperti ini
 
-![Alt text](image-18.png)
+![Alt text](Images/image-18.png)
 
 - Buat GameObject canvas dengan cara klik kanan pada window Hierarchy lalu hover ke UI > dan klik Canvas. (note: akan muncul EventSystem juga)
 
-![Alt text](image-17.png)
+![Alt text](Images/image-17.png)
 
 - lalu kita buat Child dari Canvas yang sebelumnya kita buat dengan cara klik kanan pada saat hover GameObject Canvas lalu pili Create Empty
 
-![Alt text](image-19.png)
+![Alt text](Images/image-19.png)
 
 - buat 2 gameObject dan ubah nama menjadi seperti berikut
 
-![Alt text](image-20.png)
+![Alt text](Images/image-20.png)
 
 - di dalam QuestioInfo buat 2 child GameObject lagi yang diberi nama QuestioText dan ImageHolder, di dalam ImageHolder kita tambahi child GameObject berupa image, klik kanan lalu pilih UI > Image
 
-![Alt text](image-22.png)
+![Alt text](Images/image-22.png)
 
 - `NOTE!` tambahan untuk ImageHolder, kita tambahi child berupa AudioSource denagn cara klik kanan Audio > Audio Source. agar kita bisa membunyikan game kita
 
@@ -120,21 +120,21 @@ Contoh Tampilan Project Unity 3D dan 2D:
 
 - `Note!` bila muncul pop-up *TMP Importer*, cukup klik *Import TMP Essetials* dan setelah itu close saja.
 
-![Alt text](image-23.png)
+![Alt text](Images/image-23.png)
 
 - di dalam OptionHolder, kita beri 4 button didalamnya dengan cara klik kanan pada OptionHolder lalu pilih UI > Button-TextMeshPro
 
-![Alt text](image-21.png)
+![Alt text](Images/image-21.png)
 
 - beri nama sesui dengan keinginan
 
 - dan terlihat hasil dari Hierarchy kurang lebih seperti ini
 
-![Alt text](image-24.png)
+![Alt text](Images/image-24.png)
 
 - bisa dilihat pada Windows Scene, terlihat berantakan, kita atur sedemikian rupa agar terlihat cukup enak dipandang. kurang lebih seperti ini
 
-![Alt text](image-25.png)
+![Alt text](Images/image-25.png)
 
 ## E. Code QuizManager
 
@@ -148,7 +148,7 @@ Contoh Tampilan Project Unity 3D dan 2D:
 
 - hasil kurang lebih seperti berikut
 
-![Alt text](image-26.png)
+![Alt text](Images/image-26.png)
 
 - setelah itu kita ingin mengCode isi dari script tersebut dengan cara klik 2 kali pada script tersebut, nanti akan muncul popup pada default IDE yang memunculkan isi dari script yang ada.
 
