@@ -1652,18 +1652,19 @@ public class QuizUI : MonoBehaviour
 
 ![Alt text](Images/image-53.png)
 
+<br>
+<br>
+<br>
 
+# Penutup
 
+<br>
+<br>
 
+## reference 
 
-
-
-
-
-
-
-
-reference : 
 https://www.youtube.com/watch?v=zmL9Cy7iRHY&t=1422s
+
 https://www.youtube.com/watch?v=gq2I020gM2c
+
 https://codeeasy.io/lesson/properties
