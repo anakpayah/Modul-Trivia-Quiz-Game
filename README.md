@@ -834,9 +834,312 @@ public class QuizUI : MonoBehaviour
 
 - bisa terlihat bahwasanya masih ada yang kurang, yaitu GameOverPanel. kita bisa lanjut buat `GameOverPanel`
 
+![Alt text](image-46.png)
 
+- buat child image dari `GameMenu` GameObject dan kita beri nama `GameOverPanel`
 
+- lalu kita buat stretchnya full dengan cara **_ALT_** + klik strech di *rect transform*
 
+![Alt text](image-47.png)
+
+- kita set warnanya agar lebih trasnparan dan gelap, yang kira kira seperti ini
+
+![Alt text](image-48.png)
+
+- Di dalam `GameOverPanel` kita tambahi 3 child sebagai UI/UX saat game over dan menambahi fungsi untuk mengulangi game (retry button).
+3 child tersebut, yaitu `GameOverBG` sebagai GameObject image, `GameOverText` sebagai tulisan sederhana gamenya berakhir, dan `RetryButton` sebagai tombol berfungsi untuk mengulangi game.
+
+![Alt text](image-49.png)
+
+- lalu kita set warna, bentuk, format teks dan posisi sesuai dengan yang kita inginkan. kurang lebih menjadi seperti berikut.
+
+![Alt text](image-50.png)
+
+- setelah itu kita tinggal inactive kan GameObject `GameOverPanel` dan isi reference yang sebelumnya belum ada dari GameObject `UIManager`
+
+- lalu kita akan membuat game logic dari ketiga indikasi yang akan dibuat(scoring, lifepoint, limit time)
+
+- lita masuk ke `QuizManager.cs` dan copy code berikut
+
+```C#
+using System.Collections;
+using System.Collections.Generic;
+using System;
+using UnityEngine;
+
+public class QuizManager : MonoBehaviour
+{
+    [SerializeField] private QuizUI quizUI;
+    [SerializeField] private  QuizDataSO quizDataSO;
+    [SerializeField] private float timeLimit = 60f;
+
+    private List<Question> questList;
+    private Question selectedQuest;
+    private int scoreCount = 0;
+    private float currentTime;
+    private int lifePoint = 3;
+    
+    //current question data
+    private Question selectedQuetion = new Question();
+
+    private GameStatus gameStatus = GameStatus.Next;
+    public GameStatus @GameStatus { get { return gameStatus; } }
+
+    public void Start() 
+    {
+        scoreCount = 0;
+        currentTime = timeLimit;
+        lifePoint = 3;
+
+        questList = quizDataSO.questions;
+        SelectQuestion(); 
+        gameStatus = GameStatus.Playing;
+    }
+
+    void Update()
+    {
+        if (gameStatus == GameStatus.Playing) {
+            currentTime -= Time.deltaTime;
+            SetTimer(currentTime);
+        }
+    }
+
+    void SetTimer(float value) {
+        TimeSpan time = TimeSpan.FromSeconds(value);
+        quizUI.TimerText.text = "Time:" + time.ToString("mm':'ss");
+
+        if (currentTime <= 0) {
+            gameStatus = GameStatus.Next;
+            quizUI.GameOverPanel.SetActive(true);
+        }
+    }
+
+    private void SelectQuestion()
+    {
+        //get the random number
+        int val = UnityEngine.Random.Range(0, questList.Count);
+        //set the selectedQuetion
+        selectedQuetion = questList[val];
+        //send the question to quizGameUI
+        quizUI.SetQuestion(selectedQuetion);
+
+        questList.RemoveAt(val);
+        
+    }
+
+    public bool Answer(string selectedOption) 
+    {
+        //set default to false
+        bool correct = false;
+        //if selected answer is similar to the correctAns
+        if (selectedQuetion.correctAns == selectedOption)
+        {
+            //Yes, Ans is correct
+            correct = true;
+            scoreCount += 50;
+            quizUI.ScoreText.text = "Score:"+scoreCount;
+        }
+        else
+        {
+            //No, Ans is wrong
+            lifePoint--;
+            quizUI.ReduceLife(lifePoint);
+        }
+
+        if (gameStatus == GameStatus.Playing) {
+            if (questList.Count > 0) {
+                Invoke("SelectQuestion",1f);
+            }
+            else {
+                gameStatus = GameStatus.Next;
+                quizUI.GameOverPanel.SetActive(true);
+            }
+        }
+
+        //return the value of correct bool
+        return correct;
+    }
+
+}
+
+//Data  structure for storing the quetions data
+[System.Serializable]
+public class Question
+{
+    public string questionInfo;         //question text
+    public QuestionType questionType;   //type
+    public Sprite questionImage;        //image for Image Type
+    public AudioClip audioClip;         //audio for audio type
+    public List<string> options;        //options to select
+    public string correctAns;           //correct option
+}
+
+[System.Serializable]
+public enum QuestionType
+{
+    TEXT,
+    IMAGE,
+    AUDIO
+}
+
+[System.Serializable]
+public enum GameStatus {
+    Next,
+    Playing
+}
+```
+- setelah itu masuk ke `QuizUI.cs` dan edit ke kode berikut
+
+```C#
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class QuizUI : MonoBehaviour
+{
+    [SerializeField] private QuizManager quizManager;               //ref to the QuizManager script
+    [SerializeField] private TMP_Text scoreText, timerText;
+    [SerializeField] private List<Image> lifeImageList;
+    [SerializeField] private GameObject gameOverPanel, mainMenuPanel, gamePlayPanel;
+    [SerializeField] private Color correctCol, wrongCol, normalCol; //color of buttons
+    [SerializeField] private Image questionImg;                     //image component to show image
+    [SerializeField] private AudioSource questionAudio;             //audio source for audio clip
+    [SerializeField] private TMP_Text questionInfoText;             //text to show question
+    [SerializeField] private List<Button> options, uiButtons;                  //options button reference
+
+    private float audioLength;          //store audio length
+    private Question question;          //store current question data
+    private bool answered = false;      //bool to keep track if answered or not
+
+    public TMP_Text TimerText { get => timerText; }                     //getter
+    public TMP_Text ScoreText { get => scoreText; }                     //getter
+
+    public GameObject GameOverPanel {get { return gameOverPanel; } }
+
+    private void Start() {
+        //add the listner to buttons
+        // to Option Button
+        for (int i = 0; i < options.Count; i++)
+        {
+            Button localBtn = options[i];
+            localBtn.onClick.AddListener(() => OnClick(localBtn));
+        }
+        // to uiButton
+        for (int i = 0 ; i < uiButtons.Count ; i++) {
+            Button localBtn = uiButtons[i];
+            localBtn.onClick.AddListener(() => OnClick(localBtn));
+        }
+    }
+
+    public void SetQuestion(Question question)
+    {
+        //set the question
+        this.question = question;
+        //check for questionType
+        switch (question.questionType)
+        {
+            case QuestionType.TEXT:
+                questionImg.transform.parent.gameObject.SetActive(false);   //deactivate image holder
+                break;
+            case QuestionType.IMAGE:
+                questionImg.transform.parent.gameObject.SetActive(true);    //activate image holder
+                questionImg.transform.gameObject.SetActive(true);           //activate questionImg
+                questionAudio.transform.gameObject.SetActive(false);        //deactivate questionAudio
+
+                questionImg.sprite = question.questionImage;                //set the image sprite
+                break;
+            case QuestionType.AUDIO:
+                questionImg.transform.gameObject.SetActive(false);          //deactivate questionImg
+                questionAudio.transform.gameObject.SetActive(true);         //activate questionAudio
+                
+                audioLength = question.audioClip.length;                    //set audio clip
+                StartCoroutine(PlayAudio());                                //start Coroutine
+                break;
+        }
+
+        questionInfoText.text = question.questionInfo;                      //set the question text
+
+        //suffle the list of options
+        List<string> ansOptions = ShuffleList.ShuffleListItems<string>(question.options);
+
+        //assign options to respective option buttons
+        for (int i = 0; i < options.Count; i++)
+        {
+            //set the child text
+            options[i].GetComponentInChildren<TMP_Text>().text = ansOptions[i];
+            options[i].name = ansOptions[i];    //set the name of button
+            options[i].image.color = normalCol; //set color of button to normal
+        }
+
+        answered = false;                       
+
+    }
+
+    /// <summary>
+    /// IEnumerator to repeate the audio after some time
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator PlayAudio()
+    {
+        //if questionType is audio
+        if (question.questionType == QuestionType.AUDIO)
+        {
+            //PlayOneShot
+            questionAudio.PlayOneShot(question.audioClip);
+            //wait for few seconds
+            yield return new WaitForSeconds(audioLength + 0.5f);
+            //play again
+            StartCoroutine(PlayAudio());
+        }
+        else //if questionType is not audio
+        {
+            //stop the Coroutine
+            StopCoroutine(PlayAudio());
+            //return null
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// Method assigned to the buttons
+    /// </summary>
+    /// <param name="btn">ref to the button object</param>
+    void OnClick(Button btn)
+    {
+        if (quizManager.GameStatus == GameStatus.Playing)
+        {
+            //if answered is false
+            if (!answered)
+            {
+                //set answered true
+                answered = true;
+                //get the bool value
+                bool val = quizManager.Answer(btn.name);
+
+                //if its true
+                if (val)
+                {
+                    //set color to correct
+                    btn.image.color = correctCol;                    
+                }
+                else
+                {
+                    //else set it to wrong color
+                    btn.image.color = wrongCol;
+                }
+            }
+        }    
+    }
+
+    public void ReduceLife(int index) {
+        lifeImageList[index].color = wrongCol;
+    }
+}
+```
+
+- tujuan dari logic ini agar logic dari UI dan UX yang sebelumnya telah dibuat telah berjalan, namun ada kendala dimana saat memainkan, pertanyaan yang sudah terjawab, terhapus dari data base. oleh karena itu kita akan menyimpannya ke database tertentu yang hanya sekedar melihar(Read-Only) dan bukan mengedit database tersebut.
 
 
 
