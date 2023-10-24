@@ -830,7 +830,11 @@ public class QuizUI : MonoBehaviour
 
 ![Alt text](image-45.png)
 
-- Kita coba pasang terlebih dahulu.
+- Kita coba pasang terlebih dahulu, kira kira seperti berikut.
+
+- bisa terlihat bahwasanya masih ada yang kurang, yaitu GameOverPanel. kita bisa lanjut buat `GameOverPanel`
+
+
 
 
 

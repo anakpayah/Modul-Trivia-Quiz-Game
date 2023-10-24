@@ -2379,7 +2379,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quizUI: {fileID: 1635800027}
-  quizData: []
+  quizData:
+  - {fileID: 11400000, guid: 2640648d55ef54942a26c08232544582, type: 2}
   timeLimit: 60
 --- !u!4 &919089395
 Transform:
@@ -3493,7 +3494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1499648102
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3641,7 +3642,10 @@ MonoBehaviour:
   - {fileID: 500777567}
   - {fileID: 1217151369}
   - {fileID: 1191954566}
-  uiButtons: []
+  uiButtons:
+  - {fileID: 1880208141}
+  - {fileID: 2133922532}
+  - {fileID: 1699464528}
   correctColor: {r: 0.0747597, g: 0.754717, b: 0.11562843, a: 1}
   wrongColor: {r: 0.6792453, g: 0.17621931, b: 0.17621931, a: 1}
   normalColor: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
