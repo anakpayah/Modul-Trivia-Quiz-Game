@@ -397,13 +397,13 @@ public abstract class ShuffleList
 
 ![Alt text](/Images/image-27.png)
 
-![Alt text](image-28.png)
+![Alt text](Images/image-28.png)
 
 - setelah itu pasang reference melalui Inspector pada component yang ada seperti berikut
 
-![Alt text](image-29.png)
+![Alt text](Images/image-29.png)
 
-![Alt text](image-30.png)
+![Alt text](Images/image-30.png)
 
 `Note` : pertanyaan merupakan contoh
 
@@ -503,15 +503,15 @@ public enum QuestionType
 
 - lalu buat scriptableObjectnya dengan cara klik kanan Create > QuestionData, akan muncul ScriptableObject sesuai dengan script yang kita buat sebelumnya
 
-![Alt text](image-31.png)
+![Alt text](Images/image-31.png)
 
 - hasilnya seperti berikut
 
-![Alt text](image-32.png)
+![Alt text](Images/image-32.png)
 
 - lalu kita hanya cukup drag and drop ke QuizManager unutk menggunakan pertanyaan dari ScriptableObject
 
-![Alt text](image-33.png)
+![Alt text](Images/image-33.png)
 
 ## F. Percantik UI/UX logic (Code part 2)
 
@@ -525,31 +525,31 @@ public enum QuestionType
 
 - hasil akan menjadi seperti berikut
 
-![Alt text](image-34.png)
+![Alt text](Images/image-34.png)
 
 - untuk `MainMenu` kita buat agar gambar  dapat merenggang ke seluruh layar dengan mengubah *Rect Transform* nya
 
-![Alt text](image-35.png)
+![Alt text](Images/image-35.png)
 
 - kita perlu menekan tombol **_ALT_** dan klik pojok kanan bawah (stretch + stretch)
 
-![Alt text](image-36.png)
+![Alt text](Images/image-36.png)
 
 - bisa dilihat maka gambar tersebut akan menutupi keseluruhan layar
 
-![Alt text](image-37.png)
+![Alt text](Images/image-37.png)
 
 - kita beri Child pada MainMenu tersebut berupa UI > TextMesPro dan kita beri nama `TitleText`
 
 - kita set format, penempatan dan warna sesuai dengan keinginan:
 
-![Alt text](image-38.png)
+![Alt text](Images/image-38.png)
 
 - untuk masuk ke Gameplaynya sendiri, kita buat UI > Button-TMP ; disini kita buat 3 dengan nama buttonya; `Biologi`, `Fisika`, `Kimia` (atau terserha mau bagaimana)
 
 - kita set format text dan penempatannya sesuai keinginan, hasil kurang lebih seperti ini
 
-![Alt text](image-39.png)
+![Alt text](Images/image-39.png)
 
 - lalu kita set *Inactive* GameObject `MainMenu`
 
@@ -561,31 +561,31 @@ public enum QuestionType
 
 - pertama-tama kita buat GameObject baru yang merupakan Child dari `GameMenu` dengan nama `TopBar`, GameObject yang menyimpan/hold indikasi GameObject lainnya (score, lifepoint, time). lalu kita set posisi dan *rect transform pivotnya* sesuai dengan yang kita harapkan
 
-![Alt text](image-40.png)
+![Alt text](Images/image-40.png)
 
 - di dalam TopBar tersebut kita beri 3 child yang masing merupakan image, kita beri nama; `ScoreHolder`, `LifeHolder`, dan `TimeHolder`.
 
 - kita set bentuk, warna, serta posisi sesuai dengan yang kita inginkan, kurang lebih menjadi seperti berikut
 
-![Alt text](image-41.png)
+![Alt text](Images/image-41.png)
 
 - Di dalam `ScoreHolder` dan `TimeHolder` kita tambah child masing masing yang berupa TextMeshPro untuk memberikan indikasi berapa banya score yang di dapat dan waktu tersisa.
 
 - atur masing-masing format text sesuai kebutuhan, hasil kurang lebih seperti berikut
 
-![Alt text](image-42.png)
+![Alt text](Images/image-42.png)
 
 - Di dalam `LifeHolder` kita beri 3 child berupa image sebagai indikasi jumlah lifepoint
 
 - kita buat 1 GameObject image saja terlebih dahulu dan kita ubah *source image* ke sesuatu yang bebentuk bulat, *knob* misalnya.
 
-![Alt text](image-43.png)
+![Alt text](Images/image-43.png)
 
 - selantjutnya kita hanya cukup Copy Paste GameObject yang sudah kita buat 2 kali, sehingga kita mendapatkan 3 LifePoiint gambar
 
 - kita cukup set posisi dan ukuran sesuai yang kita inginkan, hasil akhir kurang lebih seperti berikut
 
-![Alt text](image-44.png)
+![Alt text](Images/image-44.png)
 
 
 ### Coding 3
@@ -828,32 +828,32 @@ public class QuizUI : MonoBehaviour
 
 - bisa dilihat perubahan terjadi pada inspector `UIManager` GameObject, ada beberapa refrensi yang belum ada. 
 
-![Alt text](image-45.png)
+![Alt text](Images/image-45.png)
 
 - Kita coba pasang terlebih dahulu, kira kira seperti berikut.
 
 - bisa terlihat bahwasanya masih ada yang kurang, yaitu GameOverPanel. kita bisa lanjut buat `GameOverPanel`
 
-![Alt text](image-46.png)
+![Alt text](Images/image-46.png)
 
 - buat child image dari `GameMenu` GameObject dan kita beri nama `GameOverPanel`
 
 - lalu kita buat stretchnya full dengan cara **_ALT_** + klik strech di *rect transform*
 
-![Alt text](image-47.png)
+![Alt text](Images/image-47.png)
 
 - kita set warnanya agar lebih trasnparan dan gelap, yang kira kira seperti ini
 
-![Alt text](image-48.png)
+![Alt text](Images/image-48.png)
 
 - Di dalam `GameOverPanel` kita tambahi 3 child sebagai UI/UX saat game over dan menambahi fungsi untuk mengulangi game (retry button).
 3 child tersebut, yaitu `GameOverBG` sebagai GameObject image, `GameOverText` sebagai tulisan sederhana gamenya berakhir, dan `RetryButton` sebagai tombol berfungsi untuk mengulangi game.
 
-![Alt text](image-49.png)
+![Alt text](Images/image-49.png)
 
 - lalu kita set warna, bentuk, format teks dan posisi sesuai dengan yang kita inginkan. kurang lebih menjadi seperti berikut.
 
-![Alt text](image-50.png)
+![Alt text](Images/image-50.png)
 
 - setelah itu kita tinggal inactive kan GameObject `GameOverPanel` dan isi reference yang sebelumnya belum ada dari GameObject `UIManager`
 
@@ -1452,7 +1452,7 @@ public class QuizUI : MonoBehaviour
 
 - hal ini berguna untuk memilih paket data yang sesuai dengan pilihan yang telah pemain pilih
 
-![Alt text](image-51.png)
+![Alt text](Images/image-51.png)
 
 - lanjut ke tombol retry button pada menu GameOverPanel
 
@@ -1646,11 +1646,11 @@ public class QuizUI : MonoBehaviour
 
 - lalu di unity tepat bagian tombol `Retry Button`, kita tambahkan *listener* dan masukan refrensi `QuizUI` didalamnya
 
-![Alt text](image-52.png)
+![Alt text](Images/image-52.png)
 
 - drag refrensi GameObject `UIManager` lalu pilih fungsi `RetryButton` yang sebelumnya dibuat seperi gambar yang ada dibawah ini
 
-![Alt text](image-53.png)
+![Alt text](Images/image-53.png)
 
 
 
