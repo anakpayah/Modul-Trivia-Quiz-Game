@@ -513,9 +513,79 @@ public enum QuestionType
 
 ![Alt text](image-33.png)
 
+## F. Percantik UI/UX logic (Code part 2)
 
+### MainMenu
 
+- untuk memperindah UI serta UX, kita perlu membuat bagaimana pemain dapat memainkan game kita dengan sesuai serta kita bisa menampakan suatu indikasi tertentu(waktu, score, etc) agar pemain bisa merasakan interaksi mannusia dan gamnya sendiri
 
+- pertama-tama kita buat 2 GameObject  baru child dari `Canvas` yaitu; GameObject kosong `GameMenu` dan GameObject image `MainMenu`
+
+- yang sebelumnya `QuestionInfo` dan `OptionHolder` kita drag ke `GameMenu` sehingga membuat mereka berdua menjadi Child dari `GameMenu`
+
+- hasil akan menjadi seperti berikut
+
+![Alt text](image-34.png)
+
+- untuk `MainMenu` kita buat agar gambar  dapat merenggang ke seluruh layar dengan mengubah *Rect Transform* nya
+
+![Alt text](image-35.png)
+
+- kita perlu menekan tombol **_ALT_** dan klik pojok kanan bawah (stretch + stretch)
+
+![Alt text](image-36.png)
+
+- bisa dilihat maka gambar tersebut akan menutupi keseluruhan layar
+
+![Alt text](image-37.png)
+
+- kita beri Child pada MainMenu tersebut berupa UI > TextMesPro dan kita beri nama `TitleText`
+
+- kita set format, penempatan dan warna sesuai dengan keinginan:
+
+![Alt text](image-38.png)
+
+- untuk masuk ke Gameplaynya sendiri, kita buat UI > Button-TMP ; disini kita buat 3 dengan nama buttonya; `Biologi`, `Fisika`, `Kimia` (atau terserha mau bagaimana)
+
+- kita set format text dan penempatannya sesuai keinginan, hasil kurang lebih seperti ini
+
+![Alt text](image-39.png)
+
+- lalu kita set *Inactive* GameObject `MainMenu`
+
+- kita ingin memberi beberapa logic
+
+### Score, LifePoint & Time
+
+- Kita ingin memberikan suatu logic serta indikasi agar pemain merasa *fun* dalam memainkan game kita. kita beri waktu dan *life point* agar pemain merasa tertantang dan score agar pemain terasa mendapatkan suatu reward/hadiah.
+
+- pertama-tama kita buat GameObject baru yang merupakan Child dari `GameMenu` dengan nama `TopBar`, GameObject yang menyimpan/hold indikasi GameObject lainnya (score, lifepoint, time). lalu kita set posisi dan *rect transform pivotnya* sesuai dengan yang kita harapkan
+
+![Alt text](image-40.png)
+
+- di dalam TopBar tersebut kita beri 3 child yang masing merupakan image, kita beri nama; `ScoreHolder`, `LifeHolder`, dan `TimeHolder`.
+
+- kita set bentuk, warna, serta posisi sesuai dengan yang kita inginkan, kurang lebih menjadi seperti berikut
+
+![Alt text](image-41.png)
+
+- Di dalam `ScoreHolder` dan `TimeHolder` kita tambah child masing masing yang berupa TextMeshPro untuk memberikan indikasi berapa banya score yang di dapat dan waktu tersisa.
+
+- atur masing-masing format text sesuai kebutuhan, hasil kurang lebih seperti berikut
+
+![Alt text](image-42.png)
+
+- Di dalam `LifeHolder` kita beri 3 child berupa image sebagai indikasi jumlah lifepoint
+
+- kita buat 1 GameObject image saja terlebih dahulu dan kita ubah *source image* ke sesuatu yang bebentuk bulat, *knob* misalnya.
+
+![Alt text](image-43.png)
+
+- selantjutnya kita hanya cukup Copy Paste GameObject yang sudah kita buat 2 kali, sehingga kita mendapatkan 3 LifePoiint gambar
+
+- kita cukup set posisi dan ukuran sesuai yang kita inginkan, hasil akhir kurang lebih seperti berikut
+
+![Alt text](image-44.png)
 
 
 
@@ -524,4 +594,6 @@ public enum QuestionType
 
 
 reference : 
+https://www.youtube.com/watch?v=zmL9Cy7iRHY&t=1422s
+https://www.youtube.com/watch?v=gq2I020gM2c
 https://codeeasy.io/lesson/properties
