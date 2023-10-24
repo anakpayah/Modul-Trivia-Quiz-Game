@@ -690,7 +690,7 @@ using TMPro;
 public class QuizUI : MonoBehaviour
 {
     [SerializeField] private QuizManager quizManager;               //ref to the QuizManager script
-    [SerializeField] private Text scoreText, timerText;
+    [SerializeField] private TMP_Text scoreText, timerText;
     [SerializeField] private List<Image> lifeImageList;
     [SerializeField] private GameObject gameOverPanel, mainMenuPanel, gamePlayPanel;
     [SerializeField] private Color correctCol, wrongCol, normalCol; //color of buttons
@@ -703,8 +703,8 @@ public class QuizUI : MonoBehaviour
     private Question question;          //store current question data
     private bool answered = false;      //bool to keep track if answered or not
 
-    public Text TimerText { get => timerText; }                     //getter
-    public Text ScoreText { get => scoreText; }                     //getter
+    public TMP_Text TimerText { get => timerText; }                     //getter
+    public TMP_Text ScoreText { get => scoreText; }                     //getter
 
     private void Start() {
         //add the listner to buttons
@@ -824,6 +824,32 @@ public class QuizUI : MonoBehaviour
     }
 }
 ```
+- setelah edit, kita coba kembali ke unity dan melihat apa saja yang berubah dan menempelkan reference tersebut.
+
+- bisa dilihat perubahan terjadi pada inspector `UIManager` GameObject, ada beberapa refrensi yang belum ada. 
+
+![Alt text](image-45.png)
+
+- Kita coba pasang terlebih dahulu.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
