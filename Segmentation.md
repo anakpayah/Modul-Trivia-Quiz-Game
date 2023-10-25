@@ -9,9 +9,9 @@
 
 ### coding part 1
 - Quiz Manager (buat script baru QuizManager.cs)
+- buat script baru `QuizUI`
 - didalamnya, pertama coding `System.Serializable public class Question`, dan `System.Serializable public enum QuestionType`.
 - buat fungsi SelectedQuestion()
-- buat script baru `QuizUI`
 - add field and properties pada `QuizUI`
 - update isi di Unitynya
 
