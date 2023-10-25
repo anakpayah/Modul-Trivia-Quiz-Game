@@ -1660,11 +1660,3 @@ public class QuizUI : MonoBehaviour
 
 <br>
 <br>
-
-## reference 
-
-https://www.youtube.com/watch?v=zmL9Cy7iRHY&t=1422s
-
-https://www.youtube.com/watch?v=gq2I020gM2c
-
-https://codeeasy.io/lesson/properties
