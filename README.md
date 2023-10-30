@@ -1660,3 +1660,15 @@ public class QuizUI : MonoBehaviour
 
 <br>
 <br>
+
+## contact info
+
+https://gingersungames.com/
+
+create by:
+
+e-mail : afifansyafaqi@gmail.com
+
+IG : afifansyy
+
+FB : Afifan Syafaqi
